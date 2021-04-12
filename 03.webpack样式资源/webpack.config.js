@@ -51,7 +51,7 @@ module.exports = {
                 use: [
                     'style-loader',
                     'css-loader',
-                    // 将scss文件编译成css文件
+                    // 将scss文件编译成css文件 
                     'sass-loader'
                 ]
             }
