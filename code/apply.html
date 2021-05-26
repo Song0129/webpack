@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>myApply</title>
+</head>
+<body>
+<script type="text/javascript">
+	/*
+		call和apply类似
+		argsArr传参时换为...argsArr
+	*/
+	Function.prototype.myApply = function (targetObj,argsArr) {
+	    // 如果没有传递参数数组，则置为空数组
+		if (typeof argsArr === 'undefined' || argsArr === null){
+		    argsArr = [];
+		}
+		// 判断是否传入执行上下文，若没有指定，默认为window
+		if (typeof targetObj === 'undefined' || targetObj === null){
+		    targetObj = window;
+		}
+		// 利用Symbol的特性，设置为key
+		const targetFnKey = Symbol('key');
+		// 将调用myApply的函数赋值
+		targetObj[targetFnKey] = this;
+		// 执行函数，并删除之后返回
+		console.log(Symbol('key'),targetObj)
+		const result = targetObj[targetFnKey](...argsArr);
+		delete targetObj[targetFnKey];
+		return result;
+    }
+    Function.prototype.myCall = function (targetObj,...argsArr) {
+        // 如果没有传递参数数组，则置为空数组
+        if (typeof argsArr === 'undefined' || argsArr === null){
+            argsArr = [];
+        }
+        // 判断是否传入执行上下文，若没有指定，默认为window
+        if (typeof targetObj === 'undefined' || targetObj === null){
+            targetObj = window;
+        }
+        // 利用Symbol的特性，设置为key
+        const targetFnKey = Symbol('key');
+        // 将调用myApply的函数赋值
+        targetObj[targetFnKey] = this;
+        // 执行函数，并删除之后返回
+        console.log(Symbol('key'),targetObj)
+        const result = targetObj[targetFnKey](...argsArr);
+        delete targetObj[targetFnKey];
+        return result;
+    }
+    function introduce (a,b,c) {
+		console.log(`大家好，我是${this.name},今年${this.age}岁了，爱好是${this.hobby}!`);
+		console.log('其他参数是',a,b,c)
+    }
+    let jack = {
+	    name: 'jack',
+	    age: 20,
+	    hobby: '打篮球、游泳'
+    }
+    let args = [1,2,3]
+    introduce();//大家好，我是,今年岁了，爱好是!
+    introduce.myApply(jack,args);//大家好，我是jack,今年20岁了，爱好是打篮球、游泳!
+    introduce.myCall(jack,args);//大家好，我是jack,今年20岁了，爱好是打篮球、游泳!
+</script>
+</body>
+</html>

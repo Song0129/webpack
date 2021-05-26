@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Bind_New</title>
+</head>
+<body>
+<script>
+    var ArrayPrototypeSlice = Array.prototype.slice;
+    Function.prototype._bind = function ( otherThis ) {
+        if (typeof this !== 'function') {
+            // closest thing possible to the ECMAScript 5
+            // internal IsCallable function
+            throw new TypeError('Function.prototype.bind - what is trying to be bound is not callable');
+        }
+
+        var baseArgs= ArrayPrototypeSlice.call(arguments, 1),
+            baseArgsLength = baseArgs.length,
+            fToBind = this,
+            fNOP    = function() {},
+            fBound  = function() {
+                baseArgs.length = baseArgsLength; // reset to default base arguments
+                baseArgs.push.apply(baseArgs, arguments);
+                console.log(baseArgs)
+                return fToBind.apply(
+                    fNOP.prototype.isPrototypeOf(this) ? this : otherThis, baseArgs
+                );
+            };
+
+        if (this.prototype) {
+            // Function.prototype doesn't have a prototype property
+            fNOP.prototype = this.prototype;
+        }
+        fBound.prototype = new fNOP();
+
+        return fBound;
+    };
+    let obj = {i: 1};
+
+    function myFn ( a, b, ) {
+        console.log(this,a,b)
+        console.log(this.i + a + b );
+    }
+
+    console.log(typeof myFn);
+    myFn._bind(obj, 1, 2)()
+    let a = myFn._bind(obj, 1, 2);
+    new a(9);
+</script>
+</body>
+</html>

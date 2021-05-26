@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Title</title>
+</head>
+<body>
+<script>
+    // Array.prototype.myFlat = function () {
+    // 	let result = [];
+    // 	for (let i = 0;i < this.length;i++) {
+    // 	    if (Array.isArray(this[i])) {
+    // 	        result = result.concat(this[i].myFlat());
+    // 	    } else {
+    // 	        result = result.concat(this[i]);
+    // 	    }
+    // 	}
+    // 	return result;
+    // }
+    Array.prototype.myFlat = function () {
+        let result = [];
+        this.forEach(item=>{
+            if (Array.isArray(item)) {
+                result = result.concat(item.myFlat());
+            } else {
+                result = result.concat(item);
+            }
+        })
+	    return result;
+    };
+
+    Array.prototype.flat_reduce = function() {
+        return this.reduce((acc,cur)=>{
+            if (Array.isArray(cur)){
+                acc = acc.concat(cur.flat_reduce())
+            } else {
+                acc = acc.concat(cur)
+            }
+            return acc
+            // console.log(acc,cur)
+            // return acc
+            // return acc.concat(Array.isArray(cur) ? cur.flat_reduce(acc) : cur);
+        },[])
+    }
+    let arr = [1, [2, [3]]];
+    console.log(arr.myFlat());
+    console.log(arr.flat_reduce());
+</script>
+</body>
+</html>

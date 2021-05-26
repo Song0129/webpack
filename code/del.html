@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Title</title>
+</head>
+<body>
+<script type="text/javascript">
+    const form = {
+        id: '011',
+        name: '测试一',
+        description: '测试demo'
+    }
+
+    // 目标: 取到删除description属性的对象, 即下文的data
+    //方法一:
+    let data = (({id, name}) =>({id, name}))(form);
+    console.log(data) // data:{ id: '011', name: '测试一'}
+    console.log(form) // form:{ id: '011', name: '测试一', description: '测试demo' }
+
+    // 方法二:
+    let {name, ...data1} = form;
+    console.log(data1)
+    // data默认接收剩余的属性值, 打印结果同上
+</script>
+</body>
+</html>

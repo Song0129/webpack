@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>myFlat</title>
+</head>
+<body>
+<script type="text/javascript">
+
+	Array.prototype.myFlat = function () {
+		// console.log(this,result)
+        let result = [];
+		this.forEach(item=>{
+		    if (Array.isArray(item)){
+		        result = result.concat(item.myFlat(result));
+		    } else {
+                result = result.concat(item)
+		    }
+		})
+		return result
+    }
+    let arr = [1,2,[3,4,[5]]];
+	console.log(arr.myFlat())
+
+    var val = 'smtg';
+    console.log('Value is ' + val === 'Value is smtg');
+    console.log('Value is ' + (val === 'smtg') ? 'Something' : 'Nothing');
+
+
+    var ary = [1,2,3,4,5];
+    a = ary.reduce((acc,cur,idx,src)=>{
+        if (idx % 2 === 0) {
+            console.log(acc,cur,idx)
+			return acc + cur
+        } else {
+            return acc
+        }
+    });
+    console.log(a,ary)
+
+    // var x = [].reverse;
+    // x();
+
+    Function.prototype._apply = function (targetObject, argsArray) {
+        // 若是没有传递，则置为空数组
+        if(typeof argsArray === 'undefined' || argsArray === null) {
+            argsArray = []
+        }
+
+        // 是否传入执行上下文，若没有指定，则指向 window
+        if(typeof targetObject === 'undefined' || targetObject === null){
+            targetObject = window
+        }
+
+        // 利用Symbol的特性，设置为key
+        const targetFnKey = Symbol('key')
+        // 将调用_apply的函数赋值
+        targetObject[targetFnKey] = this
+        // 执行函数，并在删除之后返回
+        const result = targetObject[targetFnKey](...argsArray)
+        delete targetObject[targetFnKey]
+        return result
+    }
+    function Person(age,sex) {
+	    console.log(this.name,this.age,this.sex)
+    }
+    let jack = {
+        name: 'jack',
+	    age: 19,
+	    sex: 'men'
+    }
+    Person.call(jack,Array.from(jack))
+    // person.say()._apply()
+
+	/*
+		数组扁平化  reduce
+	 */
+	Array.prototype.flat_reduce = function() {
+		return this.reduce((acc,cur)=>{
+            if (Array.isArray(cur)){
+                acc = acc.concat(cur.flat_reduce(acc))
+            } else {
+                acc = acc.concat(cur)
+            }
+			return acc
+            // console.log(acc,cur)
+			// return acc
+			// return acc.concat(Array.isArray(cur) ? cur.flat_reduce(acc) : cur);
+		},[])
+    }
+    let arr_flat = [1,6,[2,7]]
+    // let arr_flat =  [1,[1,2,[66]], [3,4], [5,6]]
+    let a2 = arr_flat.flat_reduce([])
+	console.log('a2',a2)
+	console.log([1,9].concat(1))
+</script>
+</body>
+</html>
