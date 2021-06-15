@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Title</title>
+</head>
+<body>
+<div>
+	<label>
+		<input id="ipt" type="text" oninput="valueChange()">
+	</label>
+	<div id="box"></div>
+</div>
+<script type="text/javascript">
+	function valueChange () {
+	    let ipt = document.getElementById('ipt'),box = document.getElementById('box');
+		console.log(ipt.value)
+		ipt.setAttribute('value',ipt.value);
+		box.innerHTML = ipt.value;
+    }
+</script>
+</body>
+</html>

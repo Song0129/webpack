@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Title</title>
+</head>
+<body>
+<div id="app">
+	<p>我是父组件内容</p>
+<!--	<child :num="5"></child>-->
+</div>
+<script src="https://cdn.bootcss.com/vue/2.5.10/vue.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    Vue.component('child',{
+        template: `
+            <div>
+	            <p>{{msg}}</p>
+	            <div v-for="item in num">{{item}}</div>
+            </div>
+        `,   //定义组件模板
+        data () {
+            return {msg: 'hello,这是子组件'}
+        },   //定义组件的数据
+        methods: {},       //定义组件的方法
+        props: {"num": Number},  //配置需要传入的属性
+        beforeCreate(){
+            console.log('子组件创建前')
+	    },
+	    created () {
+            console.log('子组件创建后')
+        },
+	    beforeMount(){
+            console.log('子组件挂载前')
+	    },
+        mounted(){
+            console.log('子组件挂载后')
+        },
+	    beforeUpdate(){
+            console.log('子组件更新前')
+	    },
+	    updated(){
+            console.log('子组件更新后')
+	    },
+        beforeDestroy(){
+            console.log('子组件销毁前')
+        },
+        destroyed(){
+          console.log('子组件销毁后')
+        },
+    })
+    new Vue({
+        el: '#app',
+        data(){
+            return {
+
+            }
+        },
+        beforeCreate(){
+            console.log('父组件创建前---------beforeCreate')
+        },
+        created () {
+            console.log('父组件创建后---------created')
+        },
+        beforeMount(){
+            console.log('父组件挂载前---------beforeMount')
+        },
+        mounted(){
+            console.log('父组件挂载后---------mounted')
+        },
+        beforeUpdate(){
+            console.log('父组件更新前---------beforeUpdate')
+        },
+        updated(){
+            console.log('父组件更新后---------updated')
+        },
+        beforeDestroy(){
+            console.log('父组件销毁前---------beforeDestroy')
+        },
+        destroyed(){
+            console.log('父组件销毁后---------destroyed')
+        },
+    })
+
+</script>
+</body>
+</html>

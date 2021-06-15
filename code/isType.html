@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>isType</title>
+</head>
+<body>
+<div>1</div>
+<div>12333</div>
+<div>3</div>
+<script type="text/javascript">
+    /**
+     * js 数据类型
+     * string、number、undefined、null、boolean
+     * object、symbol、bigint
+     * @param target
+     * @param type
+     * @returns {boolean}
+     */
+	let isType = (target,type)=>{
+		// let s = Object.prototype.toString.call(target).match(/\[object (.*?)\]/)[1].toLowerCase();
+		// let s = Object.prototype.toString.call(target).substr(8).split('').reverse().join('').substr(1).split('').reverse().join('').toLowerCase();
+		let length = Object.prototype.toString.call(target).substr(8).length;
+	    let s = Object.prototype.toString.call(target).substr(8,length-1).toLowerCase();
+		console.log(s)
+		return s === type.toLowerCase();
+	}
+	console.log(isType('123','string'))
+	console.log(isType('123','object'))
+	console.log(isType({},'object'))
+	console.log(isType([],'array'))
+	console.log(isType(undefined,'undefined'))
+	console.log(isType(null,'null'))
+	console.log(isType(Symbol('ll'),'Symbol'))
+	console.log(isType(BigInt(9007199254740991),'bigint'))
+</script>
+</body>
+</html>

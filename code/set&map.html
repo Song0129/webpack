@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Set&Map</title>
+</head>
+<body>
+<script type="text/javascript">
+	let a = new Set([1,9,6]);
+	console.log(a)
+	a.forEach(item=>{
+	    console.log(item)
+	})
+	a.add(1)
+	let array = [...a]
+	console.log(a.values())
+	console.log(a,a.size)
+	console.log(array)
+
+	let arr = [1,1,1,2,2,2,3,3,6];
+	let arr1 = [...new Set(arr)];
+	console.log(arr1);
+</script>
+</body>
+</html>
