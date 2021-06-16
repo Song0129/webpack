@@ -9,7 +9,7 @@
 <body>
 <div id="app">
 	<p>我是父组件内容</p>
-<!--	<child :num="5"></child>-->
+	<child :num="5"></child>
 </div>
 <script src="https://cdn.bootcss.com/vue/2.5.10/vue.min.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -68,6 +68,13 @@
         },
         mounted(){
             console.log('父组件挂载后---------mounted')
+            window.addEventListener("beforeunload", function(e) {
+                console.log("I want to cancel");
+                // Cancel the event
+                e.preventDefault();
+                // Chrome requires returnValue to be set
+                e.returnValue = "hello";
+            });
         },
         beforeUpdate(){
             console.log('父组件更新前---------beforeUpdate')
