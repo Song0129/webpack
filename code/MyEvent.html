@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .header{
+            width: 100%;
+            height: 100px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: #ff0000;
+        }
+        .content{
+            position: absolute;
+            top: 100px;
+            left: 0;
+            right: 0;
+            bottom: 120px;
+            background: #00ff00;
+        }
+        .footer{
+            width: 100%;
+            height: 120px;
+            position: absolute;
+            bottom: 0;
+            background: #0000ff;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div class="header"></div>
+    <div class="content"></div>
+    <div class="footer"></div>
+</div>
+<script type="application/javascript">
+    function MyEvent() {
+        this.obj = {};
+    }
+    MyEvent.prototype.on = function (fnName,fn) {
+        this.obj[fnName] = fn;
+    }
+    MyEvent.prototype.fire = function (fnName) {
+        this.obj[fnName]();
+    }
+    let myEvent = new MyEvent();
+    myEvent.on('foo',()=>{
+        console.log('foo');
+    })
+    myEvent.fire('foo')
+</script>
+</body>
+</html>
