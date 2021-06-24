@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Filter&Computed</title>
+</head>
+<body>
+
+<div id="app">
+	<template>
+		<button @click="handleClick">click to add time</button>
+		<button @click="refresh">click to fresh</button>
+		<div>{{howManyTimes}}</div>
+		<div>{{clickTime | modifyByFilter}}</div>
+		<div>'refreshHook'{{refreshHook}}</div>
+	</template>
+	<template>
+		<div >
+			{{num}}
+		</div>
+		<button @click="changeNum">点击</button>
+	</template>
+</div>
+<script src="https://cdn.bootcss.com/vue/2.5.10/vue.min.js" type="text/javascript"></script>
+<script>
+    var filterCallTime = 0;
+
+    var Main = {
+        data () {
+            return {
+                clickTime: 0,
+                computedCallTime: 0,
+                // hook for force refresh
+                refreshHook: 0,
+	            num: 0,
+            };
+        },
+        filters: {
+            modifyByFilter ( v ) {
+                return `${++filterCallTime} format by filter`;
+            }
+        },
+        computed: {
+            howManyTimes () {
+                // reference prop for DI
+                this.clickTime;
+                return `${++this.computedCallTime} format by computed`;
+            }
+        },
+        methods: {
+            changeNum() {
+                this.num += 1;
+            },
+            handleClick () {
+                this.clickTime += 1;
+            },
+            refresh () {
+                this.refreshHook += 1;
+                console.log(Vue.filter("test"));
+            }
+        }
+    };
+
+    var Ctor = Vue.extend(Main);
+    new Ctor().$mount("#app");
+    Vue.filters("test", () => "");
+</script>
+</body>
+</html>
