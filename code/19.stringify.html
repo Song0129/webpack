@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Stringify</title>
+</head>
+<body>
+<script>
+
+    const data = [
+        {name: "悟空", sex: 1, age: 30},
+        {name: "八戒", sex: 0, age: 20},
+        {name: "唐僧", sex: 1, age: 30}
+    ];//JavaScript数组中包含对象
+
+    // 1.将JavaScript对象转换为JSON格式的字符串
+    let str_json1 = JSON.stringify(data);
+    console.log(str_json1);
+
+    // 2.使用stringify提取数据
+    let str_json2 = JSON.stringify(data, ["name", "age"]);
+    console.log(str_json2);
+
+    // 3.也可传入函数处理数据
+    let str_json3 = JSON.stringify(data, function ( key, value ) {
+        if (key === "sex") {
+            return ["男生", "女生"][ value ];
+        }
+        return value;
+    });
+    console.log(str_json3);
+
+    // 4.字符串正常换行
+    let str_json4 = JSON.stringify(data, ["name", "sex"], "\t");
+    console.log(str_json4);
+</script>
+</body>
+</html>

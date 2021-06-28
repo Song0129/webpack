@@ -2,7 +2,7 @@ const {resolve} = require("path");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: "./src/js/index.js",
+    entry: "./src/js/pwdCheck.js",
     output: {
         filename: "built.js",
         path: resolve(__dirname, "build")

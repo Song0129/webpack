@@ -27,14 +27,30 @@
 		console.log(s)
 		return s === type.toLowerCase();
 	}
-	console.log(isType('123','string'))
-	console.log(isType('123','object'))
-	console.log(isType({},'object'))
-	console.log(isType([],'array'))
-	console.log(isType(undefined,'undefined'))
-	console.log(isType(null,'null'))
-	console.log(isType(Symbol('ll'),'Symbol'))
-	console.log(isType(BigInt(9007199254740991),'bigint'))
+	// console.log(isType('123','string'))
+	// console.log(isType('123','object'))
+	// console.log(isType({},'object'))
+	// console.log(isType([],'array'))
+	// console.log(isType(undefined,'undefined'))
+	// console.log(isType(null,'null'))
+	// console.log(isType(Symbol('ll'),'Symbol'))
+	// console.log(isType(BigInt(9007199254740991),'bigint'))
+
+
+    let objArr = [
+        {id: 1, name: "a"},
+        {id: 1, name: "b"},
+        {id: 2, name: "c"},
+        {id: 1, name: "d"},
+        {id: 3, name: "e"},
+        {id: 1, name: "f"},
+    ], id = 1;
+    objArr.forEach(( item, index, arr ) => {
+        if (item.id == id) {
+            arr.splice(index, 1);
+        }
+    });
+    console.log(objArr);
 </script>
 </body>
 </html>
